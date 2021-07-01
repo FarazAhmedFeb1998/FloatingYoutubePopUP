@@ -49,17 +49,17 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:background="@color/white"
-            android:src="@drawable/ic_close"
+            android:src="@drawable/ic_closed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
         <ImageView
             android:id="@+id/popUpMaximize"
             android:layout_width="30dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
-            android:src="@drawable/ic_baseline_open_in_full_24"
+            android:src="@drawable/ic_full_screen"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
