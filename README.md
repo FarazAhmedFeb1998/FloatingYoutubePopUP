@@ -15,7 +15,7 @@ step1. Add this to root build.gradle
 step2. Add this to app build.gradle
 
     dependencies {
-	        implementation 'com.github.FarazAhmedFeb1998:FloatingYoutubePopUP:1.0'
+	        implementation 'com.github.FarazAhmedFeb1998:FloatingYoutubePopUP:1.1'
 	  }
 	  
 	  
