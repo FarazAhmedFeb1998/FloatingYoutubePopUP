@@ -26,6 +26,8 @@ step2. Add this to app build.gradle
         }
 	
 view = can be Image,text,button,cardView etc
+
+
 VideoID: this is the 11 digit youtube video id
       example:"B1l8KIzcoRM"
       
