@@ -1,0 +1,3 @@
+include ':floatingyoutubepopup'
+include ':app'
+rootProject.name = "FloatingYoutubePopUP"
