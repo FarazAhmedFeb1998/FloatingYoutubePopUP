@@ -38,11 +38,7 @@ class FloatingYoutubePopUp:AppCompatActivity() {
         val height = displayMetrics.heightPixels
         val width = displayMetrics.widthPixels
         popUpWidth = width / 2
-        if (height / 2 > 1000) {
-            popUpHeight = height / 2 - 150
-        } else {
-            popUpHeight = height / 2
-        }
+        popUpHeight = height / 2 - 150
 
 
         val layoutInflater: LayoutInflater =
@@ -76,8 +72,6 @@ class FloatingYoutubePopUp:AppCompatActivity() {
                 )
                 popupWindow!!.showAtLocation(mView, Gravity.NO_GRAVITY, popUpWidth, popUpHeight)
                 youtubeVideoPlayer.enterFullScreen()
-                popupView.draggableFrameLeft.visibility = View.GONE
-                popupView.draggableFrameRight.visibility = View.GONE
                 minOrMax = false
                 popupView.youtube_player1.layoutParams.height = ActionBar.LayoutParams.MATCH_PARENT
                 popupView.youtube_player1.layoutParams.width = ActionBar.LayoutParams.MATCH_PARENT
@@ -85,8 +79,6 @@ class FloatingYoutubePopUp:AppCompatActivity() {
             } else {
                 popupWindow!!.dismiss()
                 popupWindow = PopupWindow(popupView, popUpWidth, popUpHeight)
-                popupView.draggableFrameLeft.visibility = View.VISIBLE
-                popupView.draggableFrameRight.visibility = View.VISIBLE
                 popupWindow!!.showAtLocation(mView, Gravity.NO_GRAVITY, popUpWidth, popUpHeight)
                 minOrMax = true
                 popupView.youtube_player1.layoutParams.height = popUpHeight
