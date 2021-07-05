@@ -9,6 +9,7 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.PopupWindow
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerListener
@@ -22,6 +23,11 @@ class FloatingYoutubePopUp:AppCompatActivity() {
     private var popUpHeight = 0
     var playAt = 0F
     var karmaVideoId = ""
+    var clickCount = 0
+    var startTime:Long = 0L
+    var duration:Long = 0L
+    var fastForward = false
+    var fastBackWord = false
 
 
     fun floatingPopUp(context: Activity, mView: View, videoId: String): PopupWindow {
@@ -110,6 +116,30 @@ class FloatingYoutubePopUp:AppCompatActivity() {
             var offsetY = 0
             override fun onTouch(v: View?, event: MotionEvent): Boolean {
                 when (event.action) {
+                    MotionEvent.ACTION_UP -> {
+                        clickCount++
+                        if (clickCount == 1){
+                            startTime = System.currentTimeMillis()
+                        }
+                        else if (clickCount == 2){
+                            duration = System.currentTimeMillis() - startTime
+                            if (duration <= 700){
+                                fastBackWord = true
+                                popupView.backWordSecTv.text = "<<10s"
+                                popupView.backWordSecTv.visibility = View.VISIBLE
+                                clickCount = 0
+                                duration = 0L
+                            }
+                            else{
+                                clickCount = 1
+                                startTime = System.currentTimeMillis()
+                            }
+                        }
+                        if (popupView.backWordSecTv.isVisible){
+                            delay(popupView.backWordSecTv)
+                        }
+                    }
+
                     MotionEvent.ACTION_DOWN -> {
                         orgX = event.x.toInt()
                         orgY = event.y.toInt()
@@ -131,6 +161,29 @@ class FloatingYoutubePopUp:AppCompatActivity() {
             var offsetY = 0
             override fun onTouch(v: View?, event: MotionEvent): Boolean {
                 when (event.action) {
+                    MotionEvent.ACTION_UP -> {
+                        clickCount++
+                        if (clickCount == 1){
+                            startTime = System.currentTimeMillis()
+                        }
+                        else if (clickCount == 2){
+                            duration = System.currentTimeMillis() - startTime
+                            if (duration <= 700){
+                                fastForward = true
+                                popupView.forWordSecTv.visibility = View.VISIBLE
+                                clickCount = 0
+                                duration = 0L
+                            }
+                            else{
+                                clickCount = 1
+                                startTime = System.currentTimeMillis()
+                            }
+                        }
+                        if (popupView.forWordSecTv.isVisible){
+                            delay(popupView.forWordSecTv)
+                        }
+                    }
+
                     MotionEvent.ACTION_DOWN -> {
                         orgX = event.x.toInt()
                         orgY = event.y.toInt()
@@ -161,6 +214,14 @@ class FloatingYoutubePopUp:AppCompatActivity() {
             }
 
             override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
+                if (fastForward){
+                    youTubePlayer.seekTo(second+10)
+                    fastForward = false
+                }
+                if (fastBackWord){
+                    youTubePlayer.seekTo(second-10)
+                    fastBackWord = false
+                }
             }
 
             override fun onError(youTubePlayer: YouTubePlayer, error: PlayerConstants.PlayerError) {
@@ -211,4 +272,11 @@ class FloatingYoutubePopUp:AppCompatActivity() {
     }
     fun View.dpToPx(dp: Float): Int = context.dpToPx(dp)
     fun Context.dpToPx(dp: Float): Int = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics).toInt()
+
+    fun delay(dView:View){
+        val handler = android.os.Handler()
+        handler.postDelayed({
+            dView.visibility = View.VISIBLE
+        }, 900)
+    }
 }
