@@ -276,7 +276,7 @@ class FloatingYoutubePopUp:AppCompatActivity() {
     fun delay(dView:View){
         val handler = android.os.Handler()
         handler.postDelayed({
-            dView.visibility = View.VISIBLE
+            dView.visibility = View.GONE
         }, 900)
     }
 }
